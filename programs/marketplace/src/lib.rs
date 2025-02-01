@@ -17,4 +17,19 @@ pub mod marketplace {
 
         Ok(())
     }
+
+    pub fn listing(ctx: Context<List>, price: u64) -> Result<()> {
+        ctx.accounts.create_listing(price, &ctx.bumps)?;
+        ctx.accounts.deposit_nft()?;
+
+        Ok(())
+    }
+
+    pub fn purchase(ctx: Context<Purchase>) -> Result<()> {
+        ctx.accounts.send_sol()?;
+        ctx.accounts.send_nft()?;
+        ctx.accounts.close_mint_vault()?;
+
+        Ok(())
+    }
 }
